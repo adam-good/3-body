@@ -1,7 +1,11 @@
 include("3-body.jl")
 using .ThreeBody
+using Random
 using Distributions
 using GLMakie
+
+seed = Random.rand(1:1024, 1)[1]
+Random.seed!(seed)
 
 const NBODIES = 3
 
@@ -34,9 +38,9 @@ lines = [
 ]
 
 max_plot_len = 5e5
-nframes = 240
+nframes = 1440
 iter_per_frame=2e4
-record(fig, "3-body.mp4", 1:nframes) do frame
+record(fig, "output/3-body-$seed.mp4", 1:nframes) do frame
     for i = 1:iter_per_frame
         step!(prob)
         
